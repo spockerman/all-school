@@ -116,21 +116,27 @@ const menuItems = [
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { role } from '@/lib/data';
 
 export default function Menu() {
   return (
     <div className='mt-4 text-sm'>
-      {menuItems.map(item=>(
+      {menuItems.map(i=>(
         <div className='flex flex-col gap-2' key='item.title'>
-          <span className='hidden lg:block text-gray-400 font-light my-4'>{item.title}</span>
-          {item.items.map(i=>(
-            <div className='' key={i.label}>
-              <Link href={i.href} className='flex justify-center items-center lg:justify-start gap-4 text-gray-500 py-2' >
-                <Image src={i.icon} alt='' width={20} height={20}/>
-                <span className='hidden lg:block'>{i.label}</span>
-              </Link>
-            </div>
-         ))}
+          <span className='hidden lg:block text-gray-400 font-light my-4'>{i.title}</span>
+          {i.items.map( (item) => {
+            if(item.visible.includes(role)){
+              return(
+                <div className='' key={item.label}>
+                  <Link href={item.href} className='flex justify-center items-center lg:justify-start gap-4 text-gray-500 py-2' >
+                    <Image src={item.icon} alt='' width={20} height={20}/>
+                    <span className='hidden lg:block'>{item.label}</span>
+                  </Link>
+                </div>
+              );
+            }
+          
+          })}
 
         </div>
       ))}
