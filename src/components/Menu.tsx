@@ -128,7 +128,10 @@ export default function Menu() {
             if(item.visible.includes(role)){
               return(
                 <div className='' key={item.label}>
-                  <Link href={item.href} className='flex justify-center items-center lg:justify-start gap-4 text-gray-500 py-2' >
+                  <Link href={item.href} className='flex justify-center items-center 
+                                                    lg:justify-start gap-4 text-gray-500 py-2
+                                                    md:px-2 rounded-md hover:bg-lamaSkyLight' 
+                                                    >
                     <Image src={item.icon} alt='' width={20} height={20}/>
                     <span className='hidden lg:block'>{item.label}</span>
                   </Link>
