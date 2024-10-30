@@ -5,11 +5,8 @@ import React from 'react';
 import Image from 'next/image';
 import Filter from '../../../../../public/filter.png';
 import Sort from '../../../../../public/sort.png';
-import Plus from '../../../../../public/plus.png';
-import View from '../../../../../public/view.png';
-import Delete from '../../../../../public/delete.png';
-import Link from 'next/link';
 import { role, teachersData } from '@/lib/data';
+import FormModal from '@/components/FormModal';
 
 
 type Teacher = {
@@ -83,15 +80,12 @@ export default function TeacherListPage(){
             <td className="hidden lg:table-cell">{item.address}</td>
             <td>
                 <div className='flex items-center gap-2'>
-                    <Link href={`/list/teachers/${item.id}`}>
-                        <button className='w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky'>
-                            <Image src={View} alt='' width={16} height={16} />
-                        </button>
-                    </Link>
+                    
                     {role === "admin" && (
-                        <button className='w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple'>
-                        <Image src={Delete} alt='' width={16} height={16} />
-                    </button>
+                        <>
+                        <FormModal table='teacher' type='update' data={item} />
+                        <FormModal table='teacher' type='delete' id={item.id} />
+                        </>
                     )}
                 </div>
             </td>
@@ -103,7 +97,7 @@ export default function TeacherListPage(){
         <div className='bg-white p-4 rounded-md flex-1 m-4 mt-0'>
             {/* TOP */}
             <div className='flex items-center justify-between'>
-                <h1 className='hidden md:block text-lg font-semibold'>All teachers</h1>
+                <h1 className='hidden md:block text-lg font-semibold'>All Teachers</h1>
                 <div className='flex flex-col md:flex-row items-center justify-between gap-4 w-full md:w-auto'>
                     <TableSearch/>
                     <div className='flex items-center gap-4 self-end'>
@@ -113,9 +107,10 @@ export default function TeacherListPage(){
                         <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
                             <Image src={Sort} alt='' width={14} height={14}/>
                         </button>
-                        <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
-                            <Image src={Plus} alt='' width={14} height={14}/>
-                        </button>
+                        {role === "admin" && (
+                            <FormModal table='teacher' type='create'/>
+                        )}
+                        
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ import Edit from '../../../../../public/edit.png';
 import Delete from '../../../../../public/delete.png';
 import Link from 'next/link';
 import {  eventsData, role } from '@/lib/data';
+import FormModal from '@/components/FormModal';
 
 
 type Event = {
@@ -74,9 +75,11 @@ export default function EventListPage(){
                         </button>
                     </Link>
                     {role === "admin" && (
-                        <button className='w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple'>
-                        <Image src={Delete} alt='' width={16} height={16} />
-                    </button>
+                        <>
+                          <FormModal table='event' type='update' data={item} />
+                          <FormModal table='event' type='delete' id={item.id} />
+                        </>
+                        
                     )}
                 </div>
             </td>
@@ -98,9 +101,10 @@ export default function EventListPage(){
                         <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
                             <Image src={Sort} alt='' width={14} height={14}/>
                         </button>
-                        <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
-                            <Image src={Plus} alt='' width={14} height={14}/>
-                        </button>
+                        {role === 'admin' && (
+                          <FormModal table='event' type='create'/>
+                        )}
+                        
                     </div>
                 </div>
             </div>

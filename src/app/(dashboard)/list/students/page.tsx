@@ -5,11 +5,10 @@ import React from 'react';
 import Image from 'next/image';
 import Filter from '../../../../../public/filter.png';
 import Sort from '../../../../../public/sort.png';
-import Plus from '../../../../../public/plus.png';
 import View from '../../../../../public/view.png';
-import Delete from '../../../../../public/delete.png';
 import Link from 'next/link';
 import { role, studentsData } from '@/lib/data';
+import FormModal from '@/components/FormModal';
 
 
 type Student = {
@@ -55,7 +54,7 @@ type Student = {
     },
   ];
 
-export default function TeacherListPage(){
+export default function StudentListPage(){
 
     const renderRow = (item:Student) =>(
         <tr key={item.id} className='border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight'>
@@ -78,16 +77,15 @@ export default function TeacherListPage(){
 
             <td>
                 <div className='flex items-center gap-2'>
-                    <Link href={`/list/teachers/${item.id}`}>
+                    <Link href={`/list/students/${item.id}`}>
                         <button className='w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky'>
                             <Image src={View} alt='' width={16} height={16} />
                         </button>
                     </Link>
                     {role === "admin" && (
-                        <button className='w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple'>
-                        <Image src={Delete} alt='' width={16} height={16} />
-                    </button>
+                        <FormModal table='student' type='delete' id={item.id} />
                     )}
+                    
                 </div>
             </td>
         </tr>
@@ -108,9 +106,11 @@ export default function TeacherListPage(){
                         <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
                             <Image src={Sort} alt='' width={14} height={14}/>
                         </button>
-                        <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
-                            <Image src={Plus} alt='' width={14} height={14}/>
-                        </button>
+                        {role === "admin" && (
+                            <FormModal table='student' type='create'/>
+                        )}
+                        
+                        
                     </div>
                 </div>
             </div>
