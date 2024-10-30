@@ -4,11 +4,7 @@ export default function Table({
     data
 }: 
     {
-        columns:{
-                    header:string; 
-                    accessor:string; 
-                    className?: string | undefined;
-                }[];
+        columns:{header:string; accessor:string; className?: string | undefined;}[];
         renderRow: (item:any) => React.ReactNode;
         data: any[];
 
